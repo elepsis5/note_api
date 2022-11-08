@@ -38,9 +38,8 @@ class NoteRequest extends FormRequest
                 return $rules;
             case 'PUT':
                 return [
-                        'id' => 'required|integer|exists:notes,id', //должен существовать. Можно вот так: unique:games,id,' . $this->route('game'),
-                ] + $rules; // и берем все остальные правила
-            // case 'PATCH':
+                        'id' => 'required|integer|exists:notes,id',
+                ] + $rules;
             case 'DELETE':
                 return [
                     'id' => 'required|integer|exists:notes,id'
@@ -48,16 +47,18 @@ class NoteRequest extends FormRequest
         }
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
     public function all($keys = null)
     {
-        // return $this->all();
         $data = parent::all($keys);
         switch ($this->getMethod())
         {
-            // case 'PUT':
-            // case 'PATCH':
             case 'DELETE':
-                $data['date'] = $this->route('day');
+                $data['id'] = $this->route('id');
         }
         return $data;
     }

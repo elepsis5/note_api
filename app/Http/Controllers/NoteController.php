@@ -35,7 +35,7 @@ class NoteController extends Controller
      * @param  int  $id
      * @return Note
      */
-    public function show($id)
+    public function show(int $id)
     {
         return $note = Note::findOrFail($id);
     }
@@ -44,11 +44,11 @@ class NoteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\NoteRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\NoteRequest $request
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(NoteRequest $request, $id)
+    public function update(NoteRequest $request, int $id)
     {
         $note = Note::findOrFail($id);
         $note->fill($request->except(['id']));
@@ -62,9 +62,9 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $note = Note::findOrFail($id);
-        if($note->delete()) return response(null, 204);
+        if ($note->delete()) return response(null, 204);
     }
 }
